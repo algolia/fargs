@@ -132,18 +132,13 @@ import fargs from 'fargs.js';
 
 const AVAILABLE_PERMISSONS = ['read', 'write', 'update', 'delete'];
 
-const permissionValidator = {
-  message: 'should be part of AVAILABLE_PERMISSIONS',
-  test: (permission) => (AVAILABLE_PERMISSIONS.indexOf(permission) !== -1)
-};
-
 function register(email, age, options) {
   let [name, age, {email, permissions}] = fargs
     .function('register')
       .arg('email', email, {
         type: 'string',
         required: true,
-        validators: [fargs.validators.email]
+        validators: [fargs.validators.email()]
       })
       .arg('age', age, {
         type: 'number',
@@ -155,9 +150,10 @@ function register(email, age, options) {
         value: {},
         children: {
           name: {type: 'string', value: 'default name'}
-          permissions: {type: Array, element: {
-            {type: 'string', validators: [permissionValidator]}
-          }}
+          permissions: {type: Array, element: {{
+            type: 'string',
+            validators: [fargs.validators.includedIn(AVAILABLE_PERMISSIONS)]
+          }}}
         }
       })
       .values();
