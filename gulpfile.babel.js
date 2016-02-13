@@ -5,6 +5,7 @@ import connect from 'gulp-connect';
 
 import buildJS from './gulp/buildJS.js';
 import buildStatic from './gulp/buildStatic.js';
+import changelog from './gulp/changelog.js';
 import lint from './gulp/lint.js';
 import {test, reportsTest} from './gulp/test.js';
 
@@ -15,6 +16,8 @@ gulp.task('build:js:watch', ['build:js', 'build:js:watcher']);
 gulp.task('build:static', buildStatic);
 
 gulp.task('build', ['build:js', 'build:static']);
+
+gulp.task('changelog', changelog);
 
 gulp.task('clean', () => del(['dist/', 'dist-es5-module/', 'coverage/', 'mochawesome-reports/']));
 
