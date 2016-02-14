@@ -135,19 +135,19 @@ import fargs from 'fargs';
 
 const AVAILABLE_PERMISSONS = ['read', 'write', 'update', 'delete'];
 
-function register(email, age, options) {
+function register() {
   let [email, age, {name, permissions}] = fargs().check('register')
-    .arg('email', email, {
+    .arg('email', {
       type: 'string',
       required: true,
       validators: [fargs.validators.email()]
     })
-    .arg('age', age, {
+    .arg('age', {
       type: 'number',
       required: true,
       validators: [fargs.validators.greaterThan(12)]
     })
-    .arg('options', options, {
+    .arg('options', {
       type: 'Object',
       value: {},
       children: {
@@ -158,7 +158,7 @@ function register(email, age, options) {
         }}}
       }
     })
-    .values();
+    .values(arguments);
   // Here
   // - Generated usage was thrown if:
   //   - Any of the required fields was not provided

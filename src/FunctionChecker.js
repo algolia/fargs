@@ -1,5 +1,6 @@
 import forEach from 'lodash/forEach';
 import isNull from 'lodash/isNull';
+import isUndefined from 'lodash/isUndefined';
 
 import Structure from './Structure.js';
 
@@ -11,12 +12,16 @@ export default class FunctionChecker {
     this.shared = shared;
   }
 
-  arg(structure, value, name = null) {
+  arg(name, structure) {
+    if (isUndefined(structure)) {
+      structure = name;
+      name = null;
+    }
     if (!(structure instanceof Structure)) {
       const path = isNull(name) ? `arguments[${this.options.length}]` : name;
       structure = new Structure(structure, this.shared, path);
     }
-    this.options.push({name, structure, value});
+    this.options.push({name, structure});
     return this;
   }
 
@@ -51,9 +56,10 @@ export default class FunctionChecker {
     if (this.errors.length > 0) throw new Error(this.usage());
   }
 
-  values() {
+  values(entries = []) {
     let res = [];
-    forEach(this.options, (option) => {
+    forEach(this.options, (option, i) => {
+      option.value = entries[i];
       res.push(option.structure.buildValue(option.value));
     });
     this.check();

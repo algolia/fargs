@@ -9,8 +9,8 @@
     <script type="text/javascript" src="../dist/fargs.js"></script>
     <script type="text/javascript">
       fargs().check('test1')
-        .arg({type: 'string', required: true}, undefined, 'arg1')
-        .values();
+        .arg('arg1', {type: 'string', required: true})
+        .values([undefined]);
     </script>
   </body>
 </html>

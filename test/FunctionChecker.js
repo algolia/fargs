@@ -48,23 +48,29 @@ describe('FunctionChecker', () => {
       it('should be able to chain arg calls', () => {
         expect(() => {
           new FunctionChecker(name, shared)
-            .arg(defaultStructure, 'val1')
-            .arg(defaultStructure, 'val2');
+            .arg(defaultStructure)
+            .arg(defaultStructure);
         }).toNotThrow();
       });
     });
 
     context('#values', () => {
+      it('should use an empty array of value if not passed', () => {
+        const value = new FunctionChecker(name, shared)
+                .arg(new Structure({type: 'string', value: 'default value'}, shared, 'opt'))
+                .values()[0];
+        expect(value).toBe('default value');
+      });
       it('should assign the default value if not present', () => {
-        const [value] = new FunctionChecker(name, shared)
-          .arg(new Structure({type: 'string', value: 'default value'}, shared, 'opt'), undefined)
-          .values();
+        const value = new FunctionChecker(name, shared)
+          .arg(new Structure({type: 'string', value: 'default value'}, shared, 'opt'))
+          .values([undefined])[0];
         expect(value).toBe('default value');
       });
       it('should not assign the default value if present', () => {
         const [value] = new FunctionChecker(name, shared)
-          .arg(new Structure({type: 'string', value: 'default value'}, shared), 'value')
-          .values();
+          .arg(new Structure({type: 'string', value: 'default value'}, shared))
+          .values(['value']);
         expect(value).toBe('value');
       });
 
@@ -104,29 +110,29 @@ Legend:
 
           try {
             new FunctionChecker(name, shared)
-            .arg({type: 'string', value: 'default value'}, 42, 'arg1')
-            .arg({type: 'Object', children: {
+            .arg('arg1', {type: 'string', value: 'default value'})
+            .arg('arg2', {type: 'Object', children: {
               subArg1: {type: 'string', required: true},
               subArg2: {type: 'number', value: 42},
               subArg3: {type: 'string'}
-            }}, {subArg2: 0, subArg3: 42}, 'arg2')
+            }})
             .arg({type: 'Array', element: {type: 'Object', children: {
               elementArg1: {type: 'string', required: true},
               elementArg2: {type: 'number', value: 42},
               elementArg3: {type: 'string'}
-            }}}, [
-              {elementArg1: 1, elementArg2: 30},
-              {elementArg3: 42},
-              {elementArg1: 'value'}
-            ])
-            .arg({type: 'Array', element: {
+            }}})
+            .arg('arg4', {type: 'Array', element: {
               type: 'string'
-            }}, [
-              'value',
+            }})
+            .values([
               42,
-              'value'
-            ], 'arg4')
-            .values();
+              {subArg2: 0, subArg3: 42},
+              [
+                {elementArg1: 1, elementArg2: 30},
+                {elementArg3: 42},
+                {elementArg1: 'value'}
+              ],
+              ['value', 42, 'value']]);
           } catch (e) {
             expect(e.message).toEqual(expectedError);
             catchCalled = true;
@@ -149,8 +155,8 @@ Legend:
   <...> Type
   *     Required`;
         expect(new FunctionChecker(name, shared)
-          .arg(defaultStructure, 'val1')
-          .arg(defaultStructure, 'val2')
+          .arg(defaultStructure)
+          .arg(defaultStructure)
           .usage()
         ).toEqual(expected);
       });
