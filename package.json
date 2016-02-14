@@ -1,6 +1,6 @@
 {
   "name": "fargs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Algolia <support@algolia.com>",
   "license": "MIT",
   "description": "Simple options manager for JavaScript libraries. Handles type checking, default values assignation and throws generated usage on errors.",
