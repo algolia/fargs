@@ -125,8 +125,8 @@ function register(email, age, options = {}) {
 }
 ```
 
-You can actually notice that we lose the ability to type-check the third argument (which should be an object) if we want to use default values for object properties.
-If it isn't an object, the user will be prompted with an interpreter error which will obviously not contain `USAGE`.
+Notice that you'll lose the ability to use the nested default values in the
+parameters if you want to type-check options.
 
 With this module, here is how you'd do it:
 
