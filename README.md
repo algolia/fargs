@@ -169,7 +169,7 @@ function register() {
 ```
 
 Part of the logic can be precomputed.
-If you expect these call to be run often, an easy way to optimize it is to extract the structure building from the function call, by using the `.structure(name, object)` method.
+If you expect these calls to be run often, an easy way to optimize it is to extract the structure building from the function call, by using the `.structure(name, object)` method.
 
 ## Structure
 
