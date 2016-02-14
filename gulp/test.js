@@ -35,7 +35,7 @@ export function reportsTest(cb) {
   ).pipe(istanbul.hookRequire())
     .on('finish', () => {
       gulp.src(testFiles, {read: false})
-        .pipe(mocha({reporter: 'spec'}))
+        .pipe(mocha({reporter: 'mochawesome'}))
         .pipe(istanbul.writeReports()) // Creating the reports after tests ran
           .on('end', cb);
     });
