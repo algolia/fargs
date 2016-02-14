@@ -174,7 +174,42 @@ If you expect these call to be run often, an easy way to optimize it is to extra
 ## Structure
 
 A structure can receive multiple parameters.
-- `element`: Do not use require here if you want to allow `undefined`. Explicitely use the `undefined` type instead.
+- `type`: Only required attribute.  
+  String describing the type of the variable.  
+  Accepts multiple types with this syntax: `number|string|Array`.  
+  If you want to allow any type, just use the `any` type.
+  If you want to pass a default value, in order to be able to print it correctly
+  in the usage, use `valueType|any`, like `string|any`.
+- `required`: Is this element `required`? Defaults to `false`. 
+- `value`: Default value.  
+  A clone of this is used to initialize the returned value if the value passed is `undefined.`
+  Incompatible with `required`.
+- `computeValue`: Accepts a function with no argument.  
+  To use for the few cases where `_.clone` isn't what you want.  
+  `lodash`'s `clone()` method doesn't work on `function`s, `DOMElement`s, `WeakMap`s for instance.
+  Incompatible with `required`.
+- `element`: Describe the structure each element of an array should have.  
+  Do not use `required` here if you want to allow `undefined`. Explicitly use the `undefined` type instead.
+
+    ```js 
+    {type: 'Array', element: {
+      {type: 'string|undefined'}
+    }}
+    // Accepts an Array which should contain only strings or undefined.
+    ```
+
+- `children`: Accepts the children structure.
+  A structure with an `Array` type will expect children structures in an array:
+  
+    ```js
+    {type: 'Array', required: true, children: [
+      {type: 'number', required: true},
+      {type: 'string'}
+    ]}
+    // Accepts an array where:
+    // - the first child should be a number and is required
+    // - the second child should be a string and is not required
+    ```
 
 ## Types
 
