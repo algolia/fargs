@@ -133,7 +133,7 @@ import fargs from 'fargs.js';
 const AVAILABLE_PERMISSONS = ['read', 'write', 'update', 'delete'];
 
 function register(email, age, options) {
-  let [name, age, {email, permissions}] = fargs
+  let [email, age, {name, permissions}] = fargs
     .function('register')
       .arg('email', email, {
         type: 'string',
