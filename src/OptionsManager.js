@@ -1,3 +1,5 @@
+import isUndefined from 'lodash/isUndefined';
+
 import ExceptionThrower from './ExceptionThrower.js';
 import FunctionChecker from './FunctionChecker.js';
 import Structure from './Structure.js';
@@ -47,6 +49,10 @@ export default class OptionsManager {
 
   // Accepts (name, obj) or just (obj)
   structure(name, obj) {
+    if (isUndefined(obj)) {
+      obj = name;
+      name = '';
+    }
     return new Structure(obj, this._shared, name);
   }
 

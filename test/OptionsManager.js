@@ -30,6 +30,9 @@ describe('OptionsManager', () => {
       it('returns a Structure object', () => {
         expect(manager.structure('arg1', {type: 'string'})).toBeA(Structure);
       });
+      it('returns a Structure object when unnamed', () => {
+        expect(manager.structure({type: 'string'})).toBeA(Structure);
+      });
     });
 
     context('#registerType', () => {
