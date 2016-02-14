@@ -128,35 +128,34 @@ If it isn't an object, the user will be prompted with an interpreter error which
 With this module, here is how you'd do it:
 
 ```js
-import fargs from 'fargs.js';
+import fargs from 'fargs';
 
 const AVAILABLE_PERMISSONS = ['read', 'write', 'update', 'delete'];
 
 function register(email, age, options) {
-  let [email, age, {name, permissions}] = fargs
-    .function('register')
-      .arg('email', email, {
-        type: 'string',
-        required: true,
-        validators: [fargs.validators.email()]
-      })
-      .arg('age', age, {
-        type: 'number',
-        required: true,
-        validators: [fargs.validators.greaterThan(12)]
-      })
-      .arg('options', options, {
-        type: 'Object',
-        value: {},
-        children: {
-          name: {type: 'string', value: 'default name'}
-          permissions: {type: Array, element: {{
-            type: 'string',
-            validators: [fargs.validators.includedIn(AVAILABLE_PERMISSIONS)]
-          }}}
-        }
-      })
-      .values();
+  let [email, age, {name, permissions}] = fargs().check('register')
+    .arg('email', email, {
+      type: 'string',
+      required: true,
+      validators: [fargs.validators.email()]
+    })
+    .arg('age', age, {
+      type: 'number',
+      required: true,
+      validators: [fargs.validators.greaterThan(12)]
+    })
+    .arg('options', options, {
+      type: 'Object',
+      value: {},
+      children: {
+        name: {type: 'string', value: 'default name'}
+        permissions: {type: Array, element: {{
+          type: 'string',
+          validators: [fargs.validators.includedIn(AVAILABLE_PERMISSIONS)]
+        }}}
+      }
+    })
+    .values();
   // Here
   // - Generated usage was thrown if:
   //   - Any of the required fields was not provided
