@@ -66,6 +66,7 @@ With ES6, which gives us a cleaner parameters handling than ES5, here is how I w
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
 import isNull from 'lodash/isNull';
+import isPlainObject from 'lodash/isPlainObject';
 import isString from 'lodash/isString';
 
 const AVAILABLE_PERMISSONS = ['read', 'write', 'update', 'delete'];
@@ -84,7 +85,7 @@ function throwError(err) {
   throw new Error(`${USAGE}\n------\n${err}`)
 }
 
-function register(email, age, options) {
+function register(email, age, options = {}) {
   // Email should be present and match an email RegExp
   if (!isString(email) || !email.match(/^.*@.*\..*$/)) {
     throwError('`email` should be a string and match /^.*@.*\..*$/');
@@ -99,22 +100,24 @@ function register(email, age, options) {
   }
 
   // Options should be a plain object
+  if (!isPlainObject(options)) {
+    throwError('`options` should be a plain object');
+  }
 
+  // Name and permissions get default values
   let {name = 'Default name', permissions = []} = options;
 
-  // Name has a default value and must be a string
+  // Name must be a string
   if (!isString(name)) {
     throwError('`options.name` should be a string');
   }
 
-  // Permissions should be an array of strings of 5 or more characters
+  // Permissions should be an array of strings which should
+  // each be included in a constant permissions array
   if (!isArray(permissions) {
     throwError('`options.permissions` should be an Array');
   }
   permissions.forEach((permission, i) => {
-    if (isString(permission)) {
-      throwError(`\`options.permissions[${i}]\` should be a string`);
-    }
     if (AVAILABLE_PERMISSIONS.indexOf(permission) === -1) {
       throwError(`\`options.permissions[${i}]\` should be part of AVAILABLE_PERMISSIONS`);
     }
