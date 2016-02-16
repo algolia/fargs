@@ -1,6 +1,8 @@
 import chalk from 'chalk';
 import gulp from 'gulp';
 
+import assign from 'lodash/assign';
+
 import babelify from 'babelify';
 import browserify from 'browserify';
 import envify from 'envify';
@@ -48,8 +50,8 @@ function mapError(err) {
   this.emit('end');
 }
 
-function bundler(prod) {
-  return browserify(entryPoint, {standalone: exportedMethod, debug: !prod})
+function bundler() {
+  return browserify(entryPoint, {standalone: exportedMethod, debug: true})
     .transform(babelify)
     .transform(envify);
 }
@@ -81,7 +83,7 @@ export default function () {
   const prod = process.env.NODE_ENV === 'production';
   const envStr = chalk.yellow(process.env.NODE_ENV);
   gutil.log(`Environment for ${actionStr}: NODE_ENV=${envStr}`);
-  let b = bundler(prod);
+  let b = bundler();
   let res = bundle(b, prod);
   return res;
 }
