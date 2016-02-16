@@ -1,5 +1,11 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/algolia/fargs/compare/v1.1.0...v1.1.1) (2016-02-16)
+
+
+
+
 <a name="1.1.0"></a>
-# [1.1.0](https://github.com/algolia/fargs/compare/bc918d1...v1.1.0) (2016-02-14)
+# [1.1.0](https://github.com/algolia/fargs/compare/v1.0.0...v1.1.0) (2016-02-14)
 
 
 ### Bug Fixes
@@ -24,6 +30,12 @@ After:  `.values(entries = [])`
 Do not pass the value anymore in the `arg` method.
 Now its way easier since you don't need to declare the function
 arguments and can just call `.values(arguments)`.
+
+
+
+<a name="1.0.0"></a>
+# 1.0.0 (2016-02-13)
+
 
 
 
