@@ -1,14 +1,14 @@
 # fargs
 
-[![npm](https://img.shields.io/npm/v/fargs.svg)](https://www.npmjs.com/package/fargs)
+[![npm](https://img.shields.io/npm/v/fargs.png)](https://www.npmjs.com/package/fargs)
 
-[![Build Status](https://travis-ci.org/algolia/fargs.svg?branch=master)](https://travis-ci.org/algolia/fargs)
-[![Coverage Status](https://coveralls.io/repos/github/algolia/fargs/badge.svg?branch=master)](https://coveralls.io/github/algolia/fargs?branch=master)
+[![Build Status](https://travis-ci.org/algolia/fargs.png?branch=master)](https://travis-ci.org/algolia/fargs)
+[![Coverage Status](https://coveralls.io/repos/github/algolia/fargs/badge.png?branch=master)](https://coveralls.io/github/algolia/fargs?branch=master)
 
-[![Dependency Status](https://david-dm.org/algolia/fargs.svg)](https://david-dm.org/algolia/fargs)
-[![devDependency Status](https://david-dm.org/algolia/fargs/dev-status.svg)](https://david-dm.org/algolia/fargs#info=devDependencies)
+[![Dependency Status](https://david-dm.org/algolia/fargs.png)](https://david-dm.org/algolia/fargs)
+[![devDependency Status](https://david-dm.org/algolia/fargs/dev-status.png)](https://david-dm.org/algolia/fargs#info=devDependencies)
 
-[![GitHub license](https://img.shields.io/github/license/algolia/fargs.svg)](./LICENSE)
+[![GitHub license](https://img.shields.io/github/license/algolia/fargs.png)](./LICENSE)
 
 Simple options manager for JavaScript libraries.
 It handles type checking, default values assignation and throws generated usage on errors.
